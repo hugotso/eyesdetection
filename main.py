@@ -3,9 +3,9 @@ import mediapipe as mp
 import numpy as np
 from playsound import playsound
 def EAR(landmarks):
-    d1 = np.linalg.norm(landmarks[1]-landmarks[5])
-    d2 = np.linalg.norm(landmarks[2])- landmarks[4]
-    d3 = np.linalg.norm(landmarks[0]- landmarks[3])
+    d1 = np.linalg.norm(landmarks[1] - landmarks[5])
+    d2 = np.linalg.norm(landmarks[2]- landmarks[4])
+    d3 = np.linalg.norm(landmarks[0] - landmarks[3])
     return (d1+d2)/d3*0.5
 
 face_mesh = mp.solutions.face_mesh.FaceMesh()
@@ -36,7 +36,7 @@ while cap.isOpened():
                     left_eye_landmarks.append(np.array([x,y]))
             left_ear = EAR(left_eye_landmarks)
             right_ear = EAR(right_eye_landmarks)
-            # if (left_ear+right_ear)/2 < 0.85:
-            print(left_ear,right_ear)
+            if (left_ear+right_ear)/2 < 0.8:
+                print('不要睡觉')
     cv2.imshow('frame', frame)
     cv2.waitKey(10)
